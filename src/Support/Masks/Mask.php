@@ -15,6 +15,8 @@ namespace Webklex\PHPIMAP\Support\Masks;
 use Illuminate\Support\Str;
 use Webklex\PHPIMAP\Exceptions\MethodNotFoundException;
 
+use function Symfony\Component\String\u;
+
 /**
  * Class Mask
  *
@@ -65,14 +67,14 @@ class Mask {
      */
     public function __call(string $method, array $arguments) {
         if(strtolower(substr($method, 0, 3)) === 'get') {
-            $name = Str::snake(substr($method, 3));
+            $name = u(substr($method, 3))->snake()->toString();
 
             if(isset($this->attributes[$name])) {
                 return $this->attributes[$name];
             }
 
         }elseif (strtolower(substr($method, 0, 3)) === 'set') {
-            $name = Str::snake(substr($method, 3));
+            $name = u(substr($method, 3))->snake()->toString();
 
             if(isset($this->attributes[$name])) {
                 $this->attributes[$name] = array_pop($arguments);

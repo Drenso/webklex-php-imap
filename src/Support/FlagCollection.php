@@ -20,6 +20,6 @@ use Illuminate\Support\Collection;
  * @package Webklex\PHPIMAP\Support
  * @implements Collection<string, string>
  */
-class FlagCollection extends PaginatedCollection {
+class FlagCollection extends Collection {
 
 }

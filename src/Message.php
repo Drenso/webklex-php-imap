@@ -39,6 +39,8 @@ use Illuminate\Support\Str;
 use Webklex\PHPIMAP\Support\MessageCollection;
 use Webklex\PHPIMAP\Traits\HasEvents;
 
+use function Symfony\Component\String\u;
+
 /**
  * Class Message
  *
@@ -405,10 +407,10 @@ class Message {
      */
     public function __call(string $method, array $arguments) {
         if (strtolower(substr($method, 0, 3)) === 'get') {
-            $name = Str::snake(substr($method, 3));
+            $name = u(substr($method, 3))->snake()->toString();
             return $this->get($name);
         } elseif (strtolower(substr($method, 0, 3)) === 'set') {
-            $name = Str::snake(substr($method, 3));
+            $name = u(substr($method, 3))->snake()->toString();
 
             if (in_array($name, array_keys($this->attributes))) {
                 return $this->__set($name, array_pop($arguments));

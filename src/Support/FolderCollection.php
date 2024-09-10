@@ -21,6 +21,6 @@ use Webklex\PHPIMAP\Folder;
  * @package Webklex\PHPIMAP\Support
  * @implements Collection<int, Folder>
  */
-class FolderCollection extends PaginatedCollection {
+class FolderCollection extends Collection {
 
 }

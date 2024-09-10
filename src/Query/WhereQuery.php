@@ -18,6 +18,8 @@ use Webklex\PHPIMAP\Exceptions\InvalidWhereQueryCriteriaException;
 use Webklex\PHPIMAP\Exceptions\MethodNotFoundException;
 use Webklex\PHPIMAP\Exceptions\MessageSearchValidationException;
 
+use function Symfony\Component\String\u;
+
 /**
  * Class WhereQuery
  *
@@ -77,7 +79,7 @@ class WhereQuery extends Query {
     public function __call(string $name, ?array $arguments) {
         $that = $this;
 
-        $name = Str::camel($name);
+        $name = u($name)->camel()->toString();
 
         if (strtolower(substr($name, 0, 3)) === 'not') {
             $that = $that->whereNot();

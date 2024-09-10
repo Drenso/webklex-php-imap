@@ -17,6 +17,8 @@ use Webklex\PHPIMAP\Exceptions\MaskNotFoundException;
 use Webklex\PHPIMAP\Exceptions\MethodNotFoundException;
 use Webklex\PHPIMAP\Support\Masks\AttachmentMask;
 
+use function Symfony\Component\String\u;
+
 /**
  * Class Attachment
  *
@@ -144,7 +146,7 @@ class Attachment {
      */
     public function __call(string $method, array $arguments) {
         if (strtolower(substr($method, 0, 3)) === 'get') {
-            $name = Str::snake(substr($method, 3));
+            $name = u(substr($method, 3))->snake()->toString();
 
             if (isset($this->attributes[$name])) {
                 return $this->attributes[$name];
@@ -152,7 +154,7 @@ class Attachment {
 
             return null;
         } elseif (strtolower(substr($method, 0, 3)) === 'set') {
-            $name = Str::snake(substr($method, 3));
+            $name = u(substr($method, 3))->snake()->toString();
 
             $this->attributes[$name] = array_pop($arguments);
 

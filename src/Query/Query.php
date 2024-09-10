@@ -14,7 +14,6 @@ namespace Webklex\PHPIMAP\Query;
 
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use ReflectionException;
 use Webklex\PHPIMAP\Client;
@@ -420,31 +419,6 @@ class Query {
             $this->limit = $old_limit;
             $this->page = $old_page;
         }
-    }
-
-    /**
-     * Paginate the current query
-     * @param int $per_page Results you which to receive per page
-     * @param null $page The current page you are on (e.g. 0, 1, 2, ...) use `null` to enable auto mode
-     * @param string $page_name The page name / uri parameter used for the generated links and the auto mode
-     *
-     * @return LengthAwarePaginator
-     * @throws AuthFailedException
-     * @throws GetMessagesFailedException
-     * @throws ImapBadRequestException
-     * @throws ImapServerErrorException
-     * @throws ResponseException
-     */
-    public function paginate(int $per_page = 5, $page = null, string $page_name = 'imap_page'): LengthAwarePaginator {
-        if ($page === null && isset($_GET[$page_name]) && $_GET[$page_name] > 0) {
-            $this->page = intval($_GET[$page_name]);
-        } elseif ($page > 0) {
-            $this->page = (int)$page;
-        }
-
-        $this->limit = $per_page;
-
-        return $this->get()->paginate($per_page, $this->page, $page_name, true);
     }
 
     /**
